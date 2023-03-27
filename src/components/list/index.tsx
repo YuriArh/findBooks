@@ -1,12 +1,11 @@
 import React, { ReactElement } from "react";
 import styled from "styled-components";
-import Card from "../card";
-import { Book } from "../../types";
 
 const ListWrapper = styled.div`
-  margin-top: 20px;
+  margin: 20px 0;
+  min-height: 65vh;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   // grid-template-rows: repeat(5, 1fr);
   grid-column-gap: 50px;
   grid-row-gap: 30px;

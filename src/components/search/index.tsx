@@ -12,6 +12,12 @@ const SearchWrapper = styled.div`
   margin: 0 auto;
   width: 468px;
   height: 39px;
+  @media (max-width: 510px) {
+    width: 300px;
+  }
+  @media (max-width: 380px) {
+    width: 240px;
+  }
 `;
 const Input = styled.input`
   width: 410px;

@@ -2,10 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 const Button = styled.div`
-  position: absolute;
-  padding: 0px;
-  bottom: 20px;
-  left: calc(50% - 73.5px);
+  //   position: absolute;
+  //   padding: 0px;
+  //   bottom: 20px;
+  //   left: calc(50% - 73.5px);
+  margin: 0 auto;
   width: 145px;
   height: 39px;
   padding: 10px;

@@ -6,7 +6,14 @@ const ControlsWrapper = styled.div`
   color: white;
   display: flex;
   margin 15px auto;
- 
+  flex-wrap: wrap;
+  @media (max-width: 510px) {
+    width: 300px;
+  }
+  @media (max-width: 380px) {
+    width: 240px;
+    
+  }
 `;
 
 const Categories = styled.div`
@@ -21,6 +28,16 @@ const Select = styled.select`
   background: #ffffff;
   border: 1px solid #d5d0d0;
   border-radius: 100px;
+  @media (max-width: 510px) {
+    width: 300px;
+  }
+  @media (max-width: 380px) {
+    width: 240px;
+  }
+`;
+
+const Label = styled.p`
+  margin-bottom: 5px;
 `;
 
 const Sorts = styled.div``;
@@ -42,7 +59,7 @@ function Controls(props: {
   return (
     <ControlsWrapper>
       <Categories>
-        Categories:
+        <Label>Categories:</Label>
         <Select
           onChange={(e) => {
             props.setCategorie(e.target.value);
@@ -56,7 +73,7 @@ function Controls(props: {
         </Select>
       </Categories>
       <Sorts>
-        Sorts by:
+        <Label>Sorts by:</Label>
         <Select
           onChange={(e) => {
             props.setSort(e.target.value);
