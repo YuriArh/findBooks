@@ -33,7 +33,7 @@ function Main() {
   const error = useAppSelector((state) => state.books.error);
   const totalItems = useAppSelector((state) => state.books.booksTotalItems);
   const [count, setCount] = useState<number>(30);
-  const [categorie, setCategorie] = useState<string>("");
+  const [categorie, setCategorie] = useState<string>("all");
   const [term, setTerm] = useState<string | undefined>("");
   const [sort, setSort] = useState<string>("newest");
 
@@ -41,12 +41,21 @@ function Main() {
     if (!term) {
       return;
     }
-    dispatch(
-      getBooks({
-        string: `${term}+subject:${categorie}&orderBy=${sort}`,
-        isNewState: true,
-      })
-    );
+    if (categorie === "all") {
+      dispatch(
+        getBooks({
+          string: `${term}&orderBy=${sort}`,
+          isNewState: true,
+        })
+      );
+    } else {
+      dispatch(
+        getBooks({
+          string: `${term}+subject:${categorie}&orderBy=${sort}`,
+          isNewState: true,
+        })
+      );
+    }
   }, [categorie, sort, term]);
 
   const onSearch = (value?: string) => {
@@ -64,12 +73,21 @@ function Main() {
     }
     setCount(count + 30);
 
-    dispatch(
-      getBooks({
-        string: `${term}+subject:${categorie}&orderBy=${sort}&startIndex=${count}`,
-        isNewState: false,
-      })
-    );
+    if (categorie === "all") {
+      dispatch(
+        getBooks({
+          string: `${term}&orderBy=${sort}`,
+          isNewState: true,
+        })
+      );
+    } else {
+      dispatch(
+        getBooks({
+          string: `${term}+subject:${categorie}&orderBy=${sort}`,
+          isNewState: true,
+        })
+      );
+    }
   }
 
   console.log(error);

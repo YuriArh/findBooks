@@ -111,7 +111,7 @@ const Select = ({
       <DropdownStyle isVisible={open}>
         {values.map((value, index) => (
           <DropdownItem
-            onClick={() => handleChange(value === "all" ? "" : value)}
+            onClick={() => handleChange(value)}
             active={value === currentValue}
             key={index}
           >

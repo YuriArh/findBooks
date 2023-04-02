@@ -76,14 +76,14 @@ function Book() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    dispatch(getOneBook(params.id));
+  }, [params.id]);
+
   const oneBook = useAppSelector((state) => state.oneBook.data);
   const loading = useAppSelector((state) => state.oneBook.loading);
 
   const bookInfo = oneBook.volumeInfo;
-
-  useEffect(() => {
-    dispatch(getOneBook(params.id));
-  }, [params.id]);
 
   return (
     <Layout>
