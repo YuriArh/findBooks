@@ -99,27 +99,29 @@ function Book() {
       {loading ? (
         <BookLoader />
       ) : (
-        <BookContent>
-          <Img
-            src={
-              bookInfo.imageLinks?.medium
-                ? bookInfo.imageLinks?.medium
-                : coverBook
-            }
-          />
-          <DescribeBlock>
-            <Title>{bookInfo.title}</Title>
-            <Author>
-              {bookInfo.authors
-                ? bookInfo.authors?.slice(0, 3).join(", ")
-                : null}
-            </Author>
-            <Description>{bookInfo.description}</Description>
-            <Categories>
-              {bookInfo.categories ? bookInfo.categories.join("/ ") : null}
-            </Categories>
-          </DescribeBlock>
-        </BookContent>
+        bookInfo && (
+          <BookContent>
+            <Img
+              src={
+                bookInfo.imageLinks?.medium
+                  ? bookInfo.imageLinks?.medium
+                  : coverBook
+              }
+            />
+            <DescribeBlock>
+              <Title>{bookInfo.title}</Title>
+              <Author>
+                {bookInfo.authors
+                  ? bookInfo.authors?.slice(0, 3).join(", ")
+                  : null}
+              </Author>
+              <Description>{bookInfo.description}</Description>
+              <Categories>
+                {bookInfo.categories ? bookInfo.categories.join("/ ") : null}
+              </Categories>
+            </DescribeBlock>
+          </BookContent>
+        )
       )}
     </Layout>
   );
