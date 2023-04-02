@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import randomWords from "random-words";
 
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getBooks } from "../../redux/actionCreators/getBooks";
@@ -40,10 +39,8 @@ function Main() {
 
   useEffect(() => {
     if (!term) {
-      dispatch(addError("enter something in the search"));
       return;
     }
-
     dispatch(
       getBooks({
         string: `${term}+subject:${categorie}&orderBy=${sort}`,
@@ -53,7 +50,11 @@ function Main() {
   }, [categorie, sort, term]);
 
   const onSearch = (value?: string) => {
-    setTerm(value);
+    if (!value) {
+      dispatch(addError("enter something in the search"));
+    } else {
+      setTerm(value);
+    }
   };
 
   function onLoadMore() {
@@ -71,19 +72,16 @@ function Main() {
     );
   }
 
+  console.log(error);
   return (
     <MainWrapper>
       <Layout>
         <LayoutHeader>
-          <Search firstValue={term} onSearch={onSearch} />
+          <Search firstValue={term} onSearch={onSearch} error={error} />
           <Controls setSort={setSort} setCategorie={setCategorie} />
         </LayoutHeader>
         <TotalItems>
-          {error ? (
-            <p style={{ color: "darkred" }}>{error} </p>
-          ) : (
-            `Found ${totalItems} results`
-          )}
+          {loading ? "" : totalItems ? `Found ${totalItems} results` : ""}
         </TotalItems>
         <List>
           {books.length
@@ -94,12 +92,16 @@ function Main() {
             ? new Array(25).fill(0).map((_, index) => <MyLoader key={index} />)
             : null}
         </List>
-        <LoadMore
-          onClick={() => {
-            onLoadMore();
-          }}
-          loading={loading}
-        />
+        {totalItems ? (
+          <LoadMore
+            onClick={() => {
+              onLoadMore();
+            }}
+            loading={loading}
+          />
+        ) : (
+          <></>
+        )}
       </Layout>
     </MainWrapper>
   );

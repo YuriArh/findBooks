@@ -26,7 +26,7 @@ export interface BooksState {
   booksTotalItems: number;
   booksItems: Book[] | [];
   loading: boolean;
-  error: string | boolean;
+  error: string;
 }
 
 export interface OneBookState {

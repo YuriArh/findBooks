@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
 import { getBooks } from "../actionCreators/getBooks";
 import { BooksState } from "../../types";
 import { Book } from "../../types";
@@ -31,6 +30,7 @@ const booksSlice = createSlice({
     builder
       .addCase(getBooks.pending, (state, action) => {
         state.loading = true;
+        state.error = "";
         if (action.meta.arg?.isNewState) {
           state.booksItems = [];
         }
@@ -49,7 +49,10 @@ const booksSlice = createSlice({
         }
       })
       .addCase(getBooks.rejected, (state, action) => {
-        state.error = true;
+        if (typeof action.payload === "string") {
+          state.error = action.payload;
+        }
+
         console.log(action.payload);
       });
   },

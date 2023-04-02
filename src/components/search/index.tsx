@@ -1,5 +1,5 @@
 import React from "react";
-import { Dispatch, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import searchImg from "../../icons/searchimg.svg";
 
@@ -10,7 +10,7 @@ const SearchWrapper = styled.div`
   padding: 0px;
 
   margin: 0 auto;
-  width: 468px;
+
   height: 39px;
   @media (max-width: 510px) {
     width: 300px;
@@ -19,13 +19,16 @@ const SearchWrapper = styled.div`
     width: 240px;
   }
 `;
-const Input = styled.input`
+const Input = styled.input<{ error: string }>`
   width: 410px;
   height: 39px;
   padding: 10px;
   background: #ffffff;
-  border: 1px solid #d5d0d0;
+  border: ${(props) => (props.error ? "2px solid red" : "1px solid #d5d0d0")};
   border-radius: 100px;
+  &::placeholder {
+    color: ${(props) => (props.error ? "red" : "")};
+  }
 `;
 const SearchButton = styled.button`
   display: flex;
@@ -49,6 +52,7 @@ const SearchButton = styled.button`
 function Search(props: {
   onSearch: (value?: string) => void;
   firstValue?: string;
+  error: string;
 }) {
   const [value, setValue] = useState<string | undefined>(props.firstValue);
 
@@ -60,13 +64,14 @@ function Search(props: {
   return (
     <SearchWrapper>
       <Input
-        placeholder="Search"
+        placeholder={props.error ? props.error : "Search"}
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={handleKeyDown}
         value={value}
+        error={props.error}
       />
       <SearchButton onClick={() => props.onSearch(value)}>
-        <img src={searchImg}></img>
+        <img src={searchImg} alt={"searchbtn"}></img>
       </SearchButton>
     </SearchWrapper>
   );

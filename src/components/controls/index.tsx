@@ -1,46 +1,24 @@
 import React from "react";
 import styled from "styled-components";
 import { Dispatch } from "react";
+import Select from "../select";
 
 const ControlsWrapper = styled.div`
   color: white;
   display: flex;
-  margin 15px auto;
+
+  margin: 0 auto;
+  margin-top: 15px;
   flex-wrap: wrap;
-  @media (max-width: 510px) {
-    width: 300px;
-  }
-  @media (max-width: 380px) {
-    width: 240px;
-    
-  }
-`;
 
-const Categories = styled.div`
-  margin-right: 15px;
-`;
-const Select = styled.select`
-  padding: 0px;
-  margin-left: 5px;
-  width: 145px;
-  height: 39px;
-  padding: 10px;
-  background: #ffffff;
-  border: 1px solid #d5d0d0;
-  border-radius: 100px;
-  @media (max-width: 510px) {
-    width: 300px;
+  & div:first-child {
+    margin-right: 15px;
   }
+
   @media (max-width: 380px) {
     width: 240px;
   }
 `;
-
-const Label = styled.p`
-  margin-bottom: 5px;
-`;
-
-const Sorts = styled.div``;
 
 const CategoriesList = [
   "all",
@@ -58,35 +36,16 @@ function Controls(props: {
 }) {
   return (
     <ControlsWrapper>
-      <Categories>
-        <Label>Categories:</Label>
-        <Select
-          onChange={(e) => {
-            props.setCategorie(e.target.value);
-          }}
-        >
-          {CategoriesList.map((item, i) => (
-            <option key={i} value={item}>
-              {item}
-            </option>
-          ))}
-        </Select>
-      </Categories>
-      <Sorts>
-        <Label>Sorts by:</Label>
-        <Select
-          onChange={(e) => {
-            props.setSort(e.target.value);
-          }}
-        >
-          <option key={1} value={"newest"}>
-            newest
-          </option>
-          <option key={2} value={"relevance"}>
-            relevance
-          </option>
-        </Select>
-      </Sorts>
+      <Select
+        label="Categories"
+        values={CategoriesList}
+        onChange={props.setCategorie}
+      />
+      <Select
+        label="Sorts by"
+        values={["newest", "relevance"]}
+        onChange={props.setSort}
+      />
     </ControlsWrapper>
   );
 }

@@ -14,6 +14,10 @@ import backButton from "../../icons/back-button.png";
 const BookContent = styled.div`
   display: flex;
   padding: 20px;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 10px;
+  }
 `;
 
 const BackButton = styled.button`
@@ -28,6 +32,12 @@ const BackButton = styled.button`
 const Img = styled.img`
   width: 300px;
   margin-right: 20px;
+  max-height: 450px;
+  margin-bottom: 20px;
+  @media (max-width: 768px) {
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
 `;
 
 const DescribeBlock = styled.div`
@@ -67,7 +77,8 @@ function Book() {
   const navigate = useNavigate();
 
   const oneBook = useAppSelector((state) => state.oneBook.data);
-  console.log(oneBook);
+  const loading = useAppSelector((state) => state.oneBook.loading);
+
   const bookInfo = oneBook.volumeInfo;
 
   useEffect(() => {
@@ -77,11 +88,17 @@ function Book() {
   return (
     <Layout>
       <LayoutHeader>
-        <BackButton onClick={() => navigate(-1)}>
-          <img src={backButton}></img>
+        <BackButton
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          <img src={backButton} alt={"back"}></img>
         </BackButton>
       </LayoutHeader>
-      {bookInfo !== undefined ? (
+      {loading ? (
+        <BookLoader />
+      ) : (
         <BookContent>
           <Img
             src={
@@ -103,8 +120,6 @@ function Book() {
             </Categories>
           </DescribeBlock>
         </BookContent>
-      ) : (
-        <BookLoader />
       )}
     </Layout>
   );
