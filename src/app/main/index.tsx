@@ -76,15 +76,15 @@ function Main() {
     if (categorie === "all") {
       dispatch(
         getBooks({
-          string: `${term}&orderBy=${sort}`,
-          isNewState: true,
+          string: `${term}&orderBy=${sort}&startIndex=${count}`,
+          isNewState: false,
         })
       );
     } else {
       dispatch(
         getBooks({
-          string: `${term}+subject:${categorie}&orderBy=${sort}`,
-          isNewState: true,
+          string: `${term}+subject:${categorie}&orderBy=${sort}&startIndex=${count}`,
+          isNewState: false,
         })
       );
     }
@@ -102,13 +102,17 @@ function Main() {
           {loading ? "" : totalItems ? `Found ${totalItems} results` : ""}
         </TotalItems>
         <List>
-          {books.length
-            ? books?.map((item, i) => {
+          {loading
+            ? books
+              ? books?.map((item, i) => {
+                  return <Card key={i} book={item} />;
+                })
+              : new Array(25)
+                  .fill(0)
+                  .map((_, index) => <MyLoader key={index} />)
+            : books?.map((item, i) => {
                 return <Card key={i} book={item} />;
-              })
-            : loading
-            ? new Array(25).fill(0).map((_, index) => <MyLoader key={index} />)
-            : null}
+              })}
         </List>
         {totalItems ? (
           <LoadMore
