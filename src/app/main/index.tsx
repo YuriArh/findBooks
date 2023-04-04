@@ -103,7 +103,7 @@ function Main() {
         </TotalItems>
         <List>
           {loading
-            ? books
+            ? totalItems
               ? books?.map((item, i) => {
                   return <Card key={i} book={item} />;
                 })

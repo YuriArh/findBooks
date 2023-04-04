@@ -31,7 +31,9 @@ const booksSlice = createSlice({
       .addCase(getBooks.pending, (state, action) => {
         state.loading = true;
         state.error = "";
+
         if (action.meta.arg?.isNewState) {
+          state.booksTotalItems = 0;
           state.booksItems = [];
         }
       })
