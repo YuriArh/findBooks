@@ -70,19 +70,19 @@ function Card(props: CardProps) {
 
       <CardContent>
         <Title>
-          {bookInfo.title.length > 50
-            ? bookInfo.title.slice(0, 50) + "..."
+          {bookInfo.title?.length > 50
+            ? bookInfo.title?.slice(0, 50) + "..."
             : bookInfo.title}
         </Title>
         <Author>
-          {bookInfo.authors
-            ? bookInfo.authors[0].length > 100
+          {bookInfo?.authors
+            ? bookInfo?.authors[0].length > 100
               ? null
               : bookInfo.authors?.slice(0, 3).join(", ")
             : null}
         </Author>
         <Categories>
-          {bookInfo.categories ? bookInfo.categories[0] : ""}
+          {bookInfo?.categories ? bookInfo?.categories[0] : ""}
         </Categories>
       </CardContent>
     </CardWrapper>
